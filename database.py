@@ -53,4 +53,15 @@ def get_all_players() -> list:
     return player_list
 
 
+def add_tally(name: str):
+    conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    UPDATE PLAYERS SET TALLIES = TALLIES +1 WHERE NAME = ?
+
+
+''', (name,))
+    conn.commit()
+    conn.close()
 
