@@ -37,8 +37,20 @@ def add_player(player: Player) -> str:
     return 'Player added to the database!'
 
 
-def get_all_players() -> None:
+def get_all_players() -> list:
     conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
+    player_list = []
 
-    
+    cursor.execute('SELECT * FROM PLAYERS')
+    all_players = cursor.fetchall()
+
+    for player in all_players:
+        player_list.append(Player(player[1], player[2], player[3], player[4], player[5], player[0]))
+
+    conn.close()
+
+    return player_list
+
+
 
