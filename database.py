@@ -21,6 +21,24 @@ def create_tables() -> None:
     conn.close()
 
 
-def add_player(Player: Player) -> str:
-    pass
+def add_player(player: Player) -> str:
+
+    conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    INSERT INTO PLAYERS (NAME, POSITION, PHONE)
+    VALUES (?, ?, ?)
+
+''', (player.name, player.position, player.phone))
+
+    conn.commit()
+    conn.close()
+    return 'Player added to the database!'
+
+
+def get_all_players() -> None:
+    conn = sqlite3.connect('players.db')
+
+    
 
