@@ -1,15 +1,26 @@
-import sqlite3 
+import sqlite3
+from models import Player   
 
-conn = sqlite3.connect('players.db')
-cursor = conn.cursor()
+def create_tables() -> None:
 
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS Players(
-               id INTEGER PRIMARY KEY AUTOINCREMENT,
-               name TEXT NOT NULL,
-               position INTEGER DEFAULT 0,
-               goals INTEGER DEFAULT 0)
+    conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
 
-''')
-conn.commit()
-cursor.close()
+    cursor.execute('''
+    CREATE TABLE IF NOT EXISTS PLAYERS (
+                   ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                   NAME TEXT NOT NULL, 
+                   POSITION TEXT NOT NULL, 
+                   PHONE TEXT NULL, 
+                   GOALS INT DEFAULT 0, 
+                   TALLIES INT DEFAULT 0
+                    )
+    
+    ''')
+    conn.commit()
+    conn.close()
+
+
+def add_player(Player: Player) -> str:
+    pass
+
