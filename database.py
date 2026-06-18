@@ -79,3 +79,17 @@ def delete_player(name:str) -> str:
 
     return f'{name} has been deleted from the database.'
 
+def get_flagged_players() -> list:
+
+    conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
+    flagged_players = []
+
+    cursor.execute('SELECT * FROM PLAYERS WHERE TALLIES >= 3')
+    flagged = cursor.fetchall()
+
+    for player in flagged:
+        flagged_players.append(Player(player[1], player[2], player[3], player[4], player[5], player[0]))
+    
+    conn.close()
+    return flagged_players
