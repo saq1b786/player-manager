@@ -53,7 +53,7 @@ def get_all_players() -> list:
     return player_list
 
 
-def add_tally(name: str):
+def add_tally(name: str) -> str:
     conn = sqlite3.connect('players.db')
     cursor = conn.cursor()
 
@@ -64,4 +64,18 @@ def add_tally(name: str):
 ''', (name,))
     conn.commit()
     conn.close()
+    return f"Added 1 to {name}'s tally."
+
+def delete_player(name:str) -> str: 
+    conn = sqlite3.connect('players.db')
+    cursor = conn.cursor()
+
+    cursor.execute('''
+    DELETE FROM PLAYERS WHERE NAME = ?
+
+''', (name, ))
+    conn.commit()
+    conn.close()
+
+    return f'{name} has been deleted from the database.'
 
